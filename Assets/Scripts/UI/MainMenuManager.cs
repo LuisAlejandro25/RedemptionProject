@@ -7,16 +7,23 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] panels;
+    private bool initPanel;
     // Start is called before the first frame update
     void Start()
     {
+        initPanel = true;
         ShowPanel(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(!initPanel)
+            return;
+        if(Input.GetKeyDown(KeyCode.Space)){
+            initPanel = false;
+            ShowPanel(1);
+        }
     }
 
     private void CleanUI(){
@@ -31,6 +38,8 @@ public class MainMenuManager : MonoBehaviour
         if(panels.Length>index){
             CleanUI();
             panels[index].SetActive(true);
+            if(index == 0)
+                initPanel = true;
         }
     }
 
