@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetButtonDown("Fire1")){
-            Debug.Log("Fire!!!");
+            //Debug.Log("Fire!!!");
         }
     }
 

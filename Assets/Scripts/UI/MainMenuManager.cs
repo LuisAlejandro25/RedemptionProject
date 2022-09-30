@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] panels;
     private bool initPanel;
+    [SerializeField]
+    private AudioMixer audioMaster;
+    [SerializeField]
+    private Slider[] slidersRef;
+    private float auxVolume = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +47,8 @@ public class MainMenuManager : MonoBehaviour
             panels[index].SetActive(true);
             if(index == 0)
                 initPanel = true;
+            if(index == 3)
+                ApplyAudioSettings();
         }
     }
 
@@ -49,5 +58,26 @@ public class MainMenuManager : MonoBehaviour
 
     public void ExitGame(){
         Application.Quit();
+    }
+
+    private void ApplyAudioSettings(){
+        if(audioMaster.GetFloat("master", out auxVolume))
+            slidersRef[0].value = auxVolume;
+        if(audioMaster.GetFloat("music", out auxVolume))
+            slidersRef[1].value = auxVolume;
+        if(audioMaster.GetFloat("sfx",out auxVolume))
+            slidersRef[2].value = auxVolume;
+    }
+
+    public void OnGlobalVolumeChange(float gVolume){
+        audioMaster.SetFloat("master",gVolume);
+    }
+
+    public void OnMusicVolumeChange(float mVolume){
+        audioMaster.SetFloat("music",mVolume);
+    }
+
+    public void OnSFXVolumeChange(float sfxVolume){
+        audioMaster.SetFloat("sfx",sfxVolume);
     }
 }
