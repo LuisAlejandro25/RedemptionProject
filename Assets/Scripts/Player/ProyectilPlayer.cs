@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowScript : MonoBehaviour
+public class ProyectilPlayer : MonoBehaviour
 {
     public float speed;
     private float lifeTime = 5.0f;
@@ -20,11 +20,17 @@ public class ArrowScript : MonoBehaviour
         counter += Time.deltaTime;
         if(!(counter <= lifeTime))
             Destroy(this.gameObject);
+            
     }
 
     void OnTriggerEnter(Collider col){
-        if(col.CompareTag("Player")){
-            col.GetComponent<PlayerMovement>().GetHurt();
+        if(col.CompareTag("Meele")){
+            col.GetComponent<DemonMeele>().GetHurt();
+            Destroy(this.gameObject);
+        }
+
+        if(col.CompareTag("Archer")){
+            col.GetComponent<DemonArcher>().GetHurt();
             Destroy(this.gameObject);
         }
     }

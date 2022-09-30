@@ -15,16 +15,18 @@ public class GameManager : MonoBehaviour
     private Slider[] slidersRef;
     private float auxVolume = 0.0f;
     private bool pause;
+    private bool end;
     // Start is called before the first frame update
     void Start()
     {
+        end = false;
         pause = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && !pause){
+        if(Input.GetKeyDown(KeyCode.Escape) && !pause && !end){
             Time.timeScale = 0.0f;
             pause = true;
             ShowPanel(0);
@@ -81,5 +83,24 @@ public class GameManager : MonoBehaviour
 
     public void OnSFXVolumeChange(float sfxVolume){
         audioMaster.SetFloat("sfx",sfxVolume);
+    }
+
+    public void EndGame(){
+        StartCoroutine(RestartGame());
+    }
+
+    IEnumerator RestartGame(){
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene(1);
+    }
+
+    public void FinishTuto(){
+        end = true;
+        ShowPanel(2);
+    }
+
+    IEnumerator ReturnToMenu(){
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene(0);
     }
 }

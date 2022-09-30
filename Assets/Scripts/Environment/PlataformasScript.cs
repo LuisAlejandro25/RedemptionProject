@@ -23,6 +23,7 @@ public class PlataformasScript : MonoBehaviour
     private bool alphaFlag = false;
     private Vector3 initPos;
     private Vector3 nextPos;
+    private bool flag = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +64,7 @@ public class PlataformasScript : MonoBehaviour
         initPos = this.transform.position;
         alpha = 0.0f;
         alphaFlag = true;
-        while(Vector3.Distance(this.transform.position, nextPos) > 0f){
+        while(Vector3.Distance(this.transform.position, nextPos) > 0.5f){
             this.transform.position = Vector3.Lerp(initPos, nextPos, alpha);
             yield return null;
         }
@@ -73,15 +74,23 @@ public class PlataformasScript : MonoBehaviour
 
     IEnumerator SelectNewPos(){
         if(playFromStart){
-            if(Vector3.Distance(this.transform.position, startPosition) < 0.5f)
+            if(!flag){
                 nextPos = pos1.position;
-            else
+                flag = !flag;
+            }
+            else{
                 nextPos = startPosition;
+                flag = !flag;
+            }
         }else{
-            if(Vector3.Distance(this.transform.position, pos1.position) < 0.1f)
+            if(!flag){
                 nextPos = pos2.position;
-            else
+                flag = !flag;
+            }
+            else{
                 nextPos = pos1.position;
+                flag = !flag;
+            }
         }
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(Move());
@@ -109,6 +118,7 @@ public class PlataformasScript : MonoBehaviour
     }
 
     public void StartMovement(){
+        flag = false;
         nextPos = pos1.position;
         StartCoroutine(Move());
     }

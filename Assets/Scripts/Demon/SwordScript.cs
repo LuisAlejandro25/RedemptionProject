@@ -8,7 +8,7 @@ public class SwordScript : MonoBehaviour
     void OnTriggerEnter(Collider col){
         if(col.CompareTag("Player") && canDamage){
             canDamage = false;
-            Debug.Log("Deal Damage");
+            col.GetComponent<PlayerMovement>().GetHurt();
         }
     }
 

@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 1576174161939662641}
   m_Layer: 0
   m_Name: DemonMeele
-  m_TagString: Untagged
+  m_TagString: Meele
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,7 +303,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: -0.03
-  m_WalkableMask: 1
+  m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3653146689443956401
 MonoBehaviour:

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class DemonMeele : MonoBehaviour
 {
-    private float health = 3.0f;
+    private float health = 5.0f;
 
     private Animator demonAnim;
     private NavMeshAgent agent;
@@ -128,5 +128,12 @@ public class DemonMeele : MonoBehaviour
 
     public void Grito(){
         audioSource.Play();
+    }
+
+    public void GetHurt(){
+        health -= 1.0f;
+        if(health < 0 ){
+            Destroy(this.gameObject);
+        }
     }
 }

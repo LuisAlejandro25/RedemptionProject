@@ -127,6 +127,13 @@ public class DemonArcher : MonoBehaviour
             arrowAux = Instantiate(arrowPrefab, shootRef.position,shootRef.rotation);
         }
     }
+
+    public void GetHurt(){
+        health -= 1.0f;
+        if(health < 0 ){
+            Destroy(this.gameObject);
+        }
+    }
 }
 
 public enum EnemyState

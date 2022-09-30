@@ -15,6 +15,7 @@ public class PlataformaSync : MonoBehaviour
     public bool singelUse;
     public UnityEvent OnPlayerInteract;
     private GameObject playerRef;
+    private bool playerIn;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,27 +24,25 @@ public class PlataformaSync : MonoBehaviour
             canvasRef.SetActive(true);
             arrowRef.SetActive(true);
         }
+        playerIn = false;
         playerRef = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if(canvasRef.activeInHierarchy){
-            canvasRef.transform.LookAt(playerRef.transform.position);
-            canvasRef.transform.localRotation = new Vector3(canvasRef.transform.localRotation.x, 90f * Mathf.Deg2Rad, 90f * Mathf.Deg2Rad) ;
-        }*/
+        if(playerIn && Input.GetKeyDown(KeyCode.Q) && singelUse){
+            OnPlayerInteract.Invoke();
+            singelUse = false;
+        }
     }
 
     void OnTriggerEnter(Collider col){
         if(col.CompareTag("Player")){
             if(firstPlatform)
                 arrowRef.SetActive(false);
-            //teclaRef.SetActive(true);
-            if(singelUse){
-                OnPlayerInteract.Invoke();
-                singelUse = false;
-            }
+            teclaRef.SetActive(true);
+            playerIn = true;
         }
     }
 
@@ -51,7 +50,8 @@ public class PlataformaSync : MonoBehaviour
         if(col.CompareTag("Player")){
             if(firstPlatform)
                 arrowRef.SetActive(true);
-            //teclaRef.SetActive(false);
+            teclaRef.SetActive(false);
+            playerIn = false;
         }
     }
 }
